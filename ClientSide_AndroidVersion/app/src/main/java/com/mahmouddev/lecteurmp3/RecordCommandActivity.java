@@ -100,35 +100,4 @@ public class RecordCommandActivity extends Activity {
         mediaRecorder = null;
     }
 
-
-    /*--------------------- these are my functions associated to speech recognizer -------------------------*/
-    /*
-    public void onRecordButtonClick(View view){
-        if(view.getId()==R.id.recordButton){
-            promptSpeechInput();
-        }
-    }
-    public void promptSpeechInput(){
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH) ;
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Say Something");
-        try {
-            startActivityForResult(intent,100);
-        }
-         catch (ActivityNotFoundException ex){
-             Toast.makeText(RecordCommandActivity.this,"Sorry error execution",Toast.LENGTH_LONG).show();
-         }
-    }
-    public void onActivityResult(int request_code, int result_code, Intent intent ){
-        super.onActivityResult(request_code, result_code,intent);
-        switch (request_code){
-            case 100:if(result_code==RESULT_OK && intent!= null){
-                ArrayList<String> result = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) ;
-                System.out.println("Le text est : "+result.get(0));
-                }
-                break;
-        }
-    }
-    */
 }
