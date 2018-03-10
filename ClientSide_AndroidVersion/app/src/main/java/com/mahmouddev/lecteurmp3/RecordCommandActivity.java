@@ -38,16 +38,19 @@ public class RecordCommandActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
                     System.out.println("recording ...");
                     try {
                         startRecording();
                     }
                     catch (Exception ex){
-                        System.out.println("ERROR MESSAGE : "+ex.getMessage());
+                        System.out.println("ERROR MESSAGE : erreur inconnu");
                     }
                 } else if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
                     System.out.println("End of recording !");
                     stopRecordiing();
+                    Intent readSoundIntent = new Intent(v.getContext(),ReadTrackActivity.class);
+                    startActivityForResult(readSoundIntent, 0);
                 }
                 return true;
             }

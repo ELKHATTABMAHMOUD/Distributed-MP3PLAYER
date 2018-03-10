@@ -6,31 +6,44 @@
     tools:context=".RecordCommandActivity"
     android:weightSum="1">
 
-
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="100dp"
         android:id="@+id/recordButton"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:src="@drawable/music"
         android:onClick="onRecordButtonClick"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_weight="0.90" />
-
+        android:layout_weight="1"
+        />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignStart="@+id/recordButton"
-        android:background="@color/cyan"
+
         android:layout_below="@+id/recordChrono">
         <ImageButton
             android:layout_width="69dp"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
+            android:id="@+id/playButton"
             android:layout_gravity="center"
-            android:src="@drawable/recording" />
+            android:src="@drawable/play1" />
+        <ImageButton
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:layout_gravity="left"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/back1" />
+        <ImageButton
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextButton"
+            android:layout_gravity="right"
+            android:src="@drawable/next2"
+            android:layout_marginRight="50dp"/>
     </FrameLayout>
 
 </LinearLayout>
