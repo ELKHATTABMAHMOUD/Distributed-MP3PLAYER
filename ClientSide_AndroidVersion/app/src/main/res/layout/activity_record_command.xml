@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    tools:context=".RecordCommandActivity"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignStart="@+id/recordButton"
+        android:layout_below="@+id/recordChrono"
+        android:layout_weight="86"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/recordImage"
+            android:src="@drawable/record"
+            android:onClick="onRecordButtonClick"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="90"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+             />
+        <Chronometer
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:id="@+id/recordChrono"
+            android:layout_gravity="center"
+            android:maxWidth="@dimen/activity_horizontal_margin"
+            android:textSize="40dp"
+            android:layout_weight="15"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignStart="@+id/recordButton"
+        android:background="@color/cyan"
+        android:layout_below="@+id/recordChrono"
+        android:layout_weight="12"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/if_next"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:src="@drawable/recording" />
+        <ImageButton
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/recordButton"
+            android:layout_marginRight="45dp"
+            android:src="@drawable/recording" />
+        <ImageButton
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/play"
+            android:layout_gravity="center"
+            android:src="@drawable/recording" />
+    </LinearLayout>
+</LinearLayout>
