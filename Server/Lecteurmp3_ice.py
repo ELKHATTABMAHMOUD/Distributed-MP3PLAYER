@@ -181,17 +181,17 @@ if 'ManagerPrx' not in _M_Lecteurmp3.__dict__:
         def end_supprimerMorceauParLocation(self, _r):
             return _M_Lecteurmp3.Manager._op_supprimerMorceauParLocation.end(self, _r)
 
-        def printstring(self, chaine, context=None):
-            return _M_Lecteurmp3.Manager._op_printstring.invoke(self, ((chaine, ), context))
+        def streamSound(self, soundName, duration, context=None):
+            return _M_Lecteurmp3.Manager._op_streamSound.invoke(self, ((soundName, duration), context))
 
-        def printstringAsync(self, chaine, context=None):
-            return _M_Lecteurmp3.Manager._op_printstring.invokeAsync(self, ((chaine, ), context))
+        def streamSoundAsync(self, soundName, duration, context=None):
+            return _M_Lecteurmp3.Manager._op_streamSound.invokeAsync(self, ((soundName, duration), context))
 
-        def begin_printstring(self, chaine, _response=None, _ex=None, _sent=None, context=None):
-            return _M_Lecteurmp3.Manager._op_printstring.begin(self, ((chaine, ), _response, _ex, _sent, context))
+        def begin_streamSound(self, soundName, duration, _response=None, _ex=None, _sent=None, context=None):
+            return _M_Lecteurmp3.Manager._op_streamSound.begin(self, ((soundName, duration), _response, _ex, _sent, context))
 
-        def end_printstring(self, _r):
-            return _M_Lecteurmp3.Manager._op_printstring.end(self, _r)
+        def end_streamSound(self, _r):
+            return _M_Lecteurmp3.Manager._op_streamSound.end(self, _r)
 
         @staticmethod
         def checkedCast(proxy, facetOrContext=None, context=None):
@@ -249,8 +249,8 @@ if 'ManagerPrx' not in _M_Lecteurmp3.__dict__:
         def supprimerMorceauParLocation(self, location, current=None):
             raise NotImplementedError("servant method 'supprimerMorceauParLocation' not implemented")
 
-        def printstring(self, chaine, current=None):
-            raise NotImplementedError("servant method 'printstring' not implemented")
+        def streamSound(self, soundName, duration, current=None):
+            raise NotImplementedError("servant method 'streamSound' not implemented")
 
         def __str__(self):
             return IcePy.stringify(self, _M_Lecteurmp3._t_ManagerDisp)
@@ -269,7 +269,7 @@ if 'ManagerPrx' not in _M_Lecteurmp3.__dict__:
     Manager._op_supprimerMorceauxParGenre = IcePy.Operation('supprimerMorceauxParGenre', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), ((), IcePy._t_int, False, 0), ())
     Manager._op_supprimerMorceauParTitre = IcePy.Operation('supprimerMorceauParTitre', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), ((), IcePy._t_bool, False, 0), ())
     Manager._op_supprimerMorceauParLocation = IcePy.Operation('supprimerMorceauParLocation', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), ((), IcePy._t_bool, False, 0), ())
-    Manager._op_printstring = IcePy.Operation('printstring', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), ((), _M_Lecteurmp3._t_entiers, False, 0), ())
+    Manager._op_streamSound = IcePy.Operation('streamSound', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0), ((), IcePy._t_int, False, 0)), (), ((), _M_Lecteurmp3._t_entiers, False, 0), ())
 
     _M_Lecteurmp3.Manager = Manager
     del Manager
