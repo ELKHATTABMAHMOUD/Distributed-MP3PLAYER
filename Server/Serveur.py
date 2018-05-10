@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import vlc
+import time
 import sys, traceback, Ice
 from Lecteurmp3 import Manager, Morceau
 	
@@ -7,7 +9,7 @@ from Lecteurmp3 import Manager, Morceau
 	--------------------------  Réalisé par : EL KHATTAB Mahmoud, Master 1 - ILSEN  ------------------------------------
 	--------------------------------------------------------------------------------------------------------------------"""
 
-		
+	
 """----------------------------------------------------------------------------------------------------------------------------
 --- La classe Lecteur est utile pour ajouter des morceaux à une liste, chercher un ou plusieurs morceaux dans la liste des
 ---	morceau et bien évidement supprimer un ou plusieurs de la liste
@@ -28,7 +30,7 @@ class Lecteur(Manager):
 	def ajouterMorceau(self, titre, artiste, genre, adresse, current=None):
 		morceau  = Morceau(titre, artiste, genre, adresse)
 		if self.morceau_existe(morceau) == False :
-			print 'Ajout du morceau de titre : '+titre
+			"""print 'Ajout du morceau de titre : '+titre """
 			self.morceaux.append(morceau)
 			self.nombre_morceaux += 1 ;
 		else :
@@ -55,7 +57,7 @@ class Lecteur(Manager):
 	def rechMorceauxParGenre(self, genre, current=None):
 		""" --- Liste des morceaux trouvés --- """
 		list_morceaux = list()
-		print 'Recherche des morceaux de la catégorie : '+genre
+		"""print 'Recherche des morceaux de la catégorie : '+genre """
 		i = 0  
 		while i < len(self.morceaux):
 			if self.morceaux[i].genre == genre:
@@ -68,7 +70,7 @@ class Lecteur(Manager):
 		--------------------------------------------------------------------------------------------------------------------"""
 	def rechMorceauParTitre(self, titre, current=None):
 	
-		print 'Recherche du morceau : '+titre
+		"""print 'Recherche du morceau : '+titre"""
 		i = 0  
 		while i < len(self.morceaux):
 			if self.morceaux[i].titre == titre:
@@ -81,7 +83,7 @@ class Lecteur(Manager):
 		
 	def rechMorceauParLocation(self, location, current=None):
 	
-		print 'Recherche du morceau qui se trouve à : '+location
+		"""print 'Recherche du morceau qui se trouve à : '+location"""
 		i = 0  
 		while i < len(self.morceaux):
 			if self.morceaux[i].ressource == location:
@@ -94,7 +96,7 @@ class Lecteur(Manager):
 		--------------------------------------------------------------------------------------------------------------------"""
 	def supprimerMorceauxParArtiste(self, artiste, current=None):
 		nbr_morceaux = 0 
-		print 'Suppression des morceaux de l\'artiste : '+artiste
+		"""print 'Suppression des morceaux de l\'artiste : '+artiste"""
 		i = 0  
 		while i < len(self.morceaux):
 			if self.morceaux[i].artiste == artiste:
@@ -153,11 +155,41 @@ class Lecteur(Manager):
 		
 		
 	""" -----------------------------------------------------------------------------------------------------------------------
+		Méthode de lecture de la chanson
+	--------------------------------------------------------------------------------------------------------------------"""
+	def streamSound(self, soundName, duration, current=None):
+		print 'soundName is : '+soundName ;
+		
+		instance = vlc.Instance()
+		#Create a MediaPlayer with the default instance
+		player = instance.media_player_new()
+
+		#Build vlc option string
+		options = 'sout=#duplicate{dst=rtp{access=http,mux=ts,dst=127.0.0.1,port=1233},dst=display}'
+
+		#Load media with streaming options
+		media = instance.media_new(soundName, options)
+
+		#set the player position to be 50% in
+		player.set_position(50)
+
+		#Reduce the volume to 70%
+		player.audio_set_volume(10)
+
+		#Add the media to the player
+		player.set_media(media)
+
+		#Play for 10 seconds then exit
+		player.play()
+		
+				
+	""" -----------------------------------------------------------------------------------------------------------------------
 		Execution du serveur 
 		--------------------------------------------------------------------------------------------------------------------"""
 with Ice.initialize(sys.argv) as communicator:
-    adapter = communicator.createObjectAdapterWithEndpoints("LecteurMP3Adapter", "default -p 20000")
+    adapter = communicator.createObjectAdapterWithEndpoints("LecteurMP3Adapter", "tcp -h 192.168.1.42 -p 20000")
     object = Lecteur()
     adapter.add(object, communicator.stringToIdentity("LecteurMP3"))
     adapter.activate()
+	
     communicator.waitForShutdown()
