@@ -1,0 +1,14 @@
+<state>
+  <timestamp value='1526071172289' />
+  <sourceSet name='default'>
+    <source name='C:\Users\EL-KH-MAHMOUD\AndroidStudioProjects\LecteurMP3Bis\app\src\main\java\slice\Lecteurmp3.ice'>
+      <file name='C:\Users\EL-KH-MAHMOUD\AndroidStudioProjects\LecteurMP3Bis\app\src\main\java\slice\Lecteurmp3\Morceau.java' />
+      <file name='C:\Users\EL-KH-MAHMOUD\AndroidStudioProjects\LecteurMP3Bis\app\src\main\java\slice\Lecteurmp3\Manager.java' />
+      <file name='C:\Users\EL-KH-MAHMOUD\AndroidStudioProjects\LecteurMP3Bis\app\src\main\java\slice\Lecteurmp3\listMorceauxHelper.java' />
+      <file name='C:\Users\EL-KH-MAHMOUD\AndroidStudioProjects\LecteurMP3Bis\app\src\main\java\slice\Lecteurmp3\ManagerPrx.java' />
+      <file name='C:\Users\EL-KH-MAHMOUD\AndroidStudioProjects\LecteurMP3Bis\app\src\main\java\slice\Lecteurmp3\_ManagerPrxI.java' />
+    </source>
+    <arg value='C:\Program Files\ZeroC\Ice-3.7.0\bin\slice2java.exe' />
+    <arg value='-IC:\Program Files\ZeroC\Ice-3.7.0\slice' />
+  </sourceSet>
+</state>
