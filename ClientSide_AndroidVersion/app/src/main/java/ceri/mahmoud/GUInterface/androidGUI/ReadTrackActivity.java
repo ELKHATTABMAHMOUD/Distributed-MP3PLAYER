@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
@@ -44,19 +45,21 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 public class ReadTrackActivity extends Activity implements View.OnClickListener {
     private ImageView playButton ;
     private ImageView backButton ;
-
+    private ImageView volume ;
+    private AudioManager mAudioManager ;
     private MediaPlayer mPlayer ;
     private ProgressDialog pDialog ;
     private boolean initialStage =true ;
     private boolean playPause;
+    private boolean isVolumeDown = false ;
     String videoURL = "http://192.168.0.12:8090/test.mp3";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_track);
-        playButton = (ImageView) findViewById(R.id.playButton);
-        backButton = (ImageView) findViewById(R.id.backButton) ;
-
+        playButton = (ImageButton) findViewById(R.id.playButton);
+        backButton = (ImageButton) findViewById(R.id.backButton) ;
+        volume     = (ImageButton) findViewById(R.id.volumeButton);
         mPlayer = new MediaPlayer();
         mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         pDialog = new ProgressDialog(this);
@@ -68,18 +71,75 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
                 finish();
             }
         });
+        volume.setOnClickListener(new ImageButton.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isVolumeDown) {
+                    volume.setImageResource(R.drawable.ic_volume_off);
+                    mPlayer.setVolume(0, 0);
+                    isVolumeDown =true;
+                }
+                else {
+                    mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+                    int vol = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    volume.setImageResource(R.drawable.ic_volume_up);
+
+                    mPlayer.setVolume(vol, vol);
+                    isVolumeDown=false;
+                }
+            }
+        });
         /*******************  this will be used to call ice server ***********************
         playButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                /*****************************************************************
-                try (Communicator communicator = Util.initialize()) {
-                    com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.1.42 -p 20000");
-                    ManagerPrx lecteurmp3 = ManagerPrx.checkedCast(base);
-                    if (lecteurmp3 == null) {
-                        throw new Error("Invalid proxy");
+                try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize())
+                {
+                    com.zeroc.Ice.ObjectPrx base1 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 10000");
+                    ManagerPrx server1 = ManagerPrx.checkedCast(base1);
+
+                    com.zeroc.Ice.ObjectPrx base2 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 20000");
+                    ManagerPrx server2 = ManagerPrx.checkedCast(base2);
+
+                    com.zeroc.Ice.ObjectPrx base3 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 30000");
+                    ManagerPrx server3 = ManagerPrx.checkedCast(base3);
+                    if(server1 == null || server2 == null|| server3 == null )
+                    {
+                        throw new Error("Invalid server proxy");
                     }
-                    lecteurmp3.streamSound("sounds\\test.mp3", 100);
+                    // Add sounds to server 1
+                    server1.ajouterMorceau("test", "Rai", "Auteur 1", "F:\\sounds");
+                    // Add sounds to server 2
+                    server2.ajouterMorceau("test1", "RnB", "Auteur 2", "F:\\sounds");
+                    // Add sounds to server 3
+                    server3.ajouterMorceau("test2", "Rock", "Auteur 3", "F:\\sounds");
+                    int serverNumber = 0 ;
+                    // search a sound in all servers
+                    if(server1.rechMorceauParTitre("test")) {
+                        serverNumber = 1;
+                    }
+                    else {
+                        if(server2.rechMorceauParTitre("test")) {
+                            serverNumber = 2;
+                        }
+                        else {
+                            if(server3.rechMorceauParTitre("test")) {
+                                serverNumber = 2;
+                            }
+                        }
+                    }
+
+                    switch(serverNumber) {
+                        case 1:	System.out.println("server 1");
+                                server1.streamSound("test", 5);
+                                break;
+                        case 2:	System.out.println("server 2");
+                                server1.streamSound("test", 5);
+                                break;
+                        case 3:	System.out.println("server 3");
+                                server1.streamSound("test", 5);
+                                break;
+                    }
                 }
             }
         });
@@ -92,7 +152,7 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
         new Player().execute(url);
         */
         if(!playPause){
-            playButton.setImageResource(R.drawable.ic_pause_32);
+            playButton.setImageResource(R.drawable.ic_pause);
             if(initialStage){
                 new Player().execute(videoURL);
             }
@@ -104,7 +164,7 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
             playPause=true;
         }
         else{
-            playButton.setImageResource(R.drawable.ic_play_bis_48);
+            playButton.setImageResource(R.drawable.ic_play);
             if(mPlayer.isPlaying()){
                 mPlayer.pause();
             }
@@ -167,7 +227,7 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
                     public void onCompletion(MediaPlayer mp) {
                         initialStage = true ;
                         playPause = false;
-                        playButton.setImageResource(R.drawable.ic_play_bis_48);
+                        playButton.setImageResource(R.drawable.ic_play);
                         mPlayer.stop();
                         mPlayer.release();
                     }

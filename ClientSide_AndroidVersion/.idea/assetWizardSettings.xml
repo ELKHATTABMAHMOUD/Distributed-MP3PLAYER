@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio1/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_volume_up_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio1/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_record_voice_over_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -34,7 +34,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="C:\Users\EL-KH-MAHMOUD\Downloads\20151119_124903.jpg" />
-                                      <entry key="outputName" value="ic_volume_up" />
+                                      <entry key="outputName" value="ic_voive_record" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="211b0e" />
                                     </map>

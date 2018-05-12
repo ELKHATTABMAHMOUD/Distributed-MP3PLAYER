@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Map;
 import ceri.mahmoud.GUInterface.androidGUI.RecognitionCallback;
@@ -43,6 +45,7 @@ public class SignalAcqusitionImpl implements  ISignalAcqusition, RecognitionCall
         command.append(matches.get(0));
         System.out.println("(RecordCommandactivity.java) recording has been finished ...");
         getObjectAction(command.toString());
+
     }
     private void recordSignal(Context context){
             System.out.println("*recordSignal*");

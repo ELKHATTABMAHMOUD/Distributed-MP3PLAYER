@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 public class WSInvoker extends Activity{
     private static String action  ;
     private static String object ;
-    private static String serviceWebUrl = "http://192.168.0.12:4040/RequestAnalyser/Analyser/getActionObject/";
+    private static String serviceWebUrl = "http://192.168.0.12:4040/RequestAnalyser/Analyser/getActionObject/jouer californie";
 
     public static Map<String,String> getActionObject(String command, Context context){
         Map<String,String> actionObject = new HashMap<String,String>(2);
@@ -46,7 +47,13 @@ public class WSInvoker extends Activity{
                             WSInvoker.startActivity(actionObject, context);
                         } catch (JSONException e) {
                             System.out.println("Your vocal message was not clear!");
+
                         }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
 
                     }
                 });

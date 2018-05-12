@@ -17,33 +17,39 @@
         android:layout_marginRight="20dp"
         android:layout_weight="1"
         android:src="@drawable/trackpicture" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignStart="@+id/recordButton"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="20dp">
 
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignStart="@+id/recordButton"
         android:layout_below="@+id/recordChrono">
 
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="wrap_content"
+            android:layout_width="54dp"
             android:layout_height="53dp"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/ic_back_48" />
+            android:layout_marginLeft="38dp"
+            android:src="@drawable/ic_voive_record"
+            android:clickable="true" />
 
         <ImageButton
             android:id="@+id/playButton"
             android:layout_width="54dp"
             android:layout_height="53dp"
-            android:layout_marginLeft="130dp"
-            android:src="@drawable/ic_play_bis_48" />
+            android:layout_marginLeft="38dp"
+            android:src="@drawable/ic_play" />
 
         <ImageButton
-            android:id="@+id/nextButton"
-            android:layout_width="58dp"
-            android:layout_height="57dp"
-            android:layout_marginLeft="230dp"
-            android:background="@drawable/ic_volume_up" />
-    </FrameLayout>
+            android:id="@+id/volumeButton"
+            android:layout_width="54dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="38dp"
+            android:src="@drawable/ic_volume_up" />
+    </LinearLayout>
 
 </LinearLayout>
