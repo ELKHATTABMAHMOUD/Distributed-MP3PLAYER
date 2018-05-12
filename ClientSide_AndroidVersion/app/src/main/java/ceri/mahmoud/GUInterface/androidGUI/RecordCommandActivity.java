@@ -64,10 +64,6 @@ public class RecordCommandActivity extends Activity{
         }
         return super.onOptionsItemSelected(item);
     }
-    /**
-     * Invoking the Request analyser web service. This web service
-     * provides the object and the action to perform on this object
-     */
 
 
 }

@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    tools:context=".RecordCommandActivity"
+    tools:context="ceri.mahmoud.GUInterface.androidGUI.ReadTrackActivity"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,26 +41,14 @@
         android:background="@color/cyan"
         android:layout_below="@+id/recordChrono"
         android:layout_weight="12"
-        android:orientation="horizontal">
-        <ImageButton
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/if_next"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
-            android:src="@drawable/recording" />
-        <ImageButton
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/recordButton"
-            android:layout_marginRight="45dp"
-            android:src="@drawable/recording" />
-        <ImageButton
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-            android:id="@+id/play"
+        <ImageButton
+            android:id="@+id/recordButton"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/recording" />
+            android:src="@drawable/recording"
+        />
     </LinearLayout>
 </LinearLayout>

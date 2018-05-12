@@ -3,47 +3,48 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    tools:context=".RecordCommandActivity"
+    tools:context="ceri.mahmoud.GUInterface.androidGUI.ReadTrackActivity"
     android:weightSum="1">
 
     <ImageView
+        android:id="@+id/soundPicture"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/recordButton"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:src="@drawable/music"
-        android:onClick="onRecordButtonClick"
-        android:layout_centerVertical="true"
+        android:layout_height="348dp"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+
+        android:layout_marginRight="20dp"
         android:layout_weight="1"
-        />
+        android:src="@drawable/trackpicture" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignStart="@+id/recordButton"
 
         android:layout_below="@+id/recordChrono">
+
         <ImageButton
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/playButton"
-            android:layout_gravity="center"
-            android:src="@drawable/play1" />
-        <ImageButton
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
             android:id="@+id/backButton"
-            android:layout_gravity="left"
-            android:layout_marginLeft="50dp"
-            android:src="@drawable/back1" />
+            android:layout_width="58dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/ic_back_48"
+            />+
+
         <ImageButton
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/playButton"
+            android:layout_width="54dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="130dp"
+            android:src="@drawable/ic_play_bis_48" />
+
+        <ImageButton
             android:id="@+id/nextButton"
-            android:layout_gravity="right"
-            android:src="@drawable/next2"
-            android:layout_marginRight="50dp"/>
+            android:layout_width="58dp"
+            android:layout_height="57dp"
+            android:layout_marginLeft="230dp"
+            android:background="@drawable/ic_volume_up" />
     </FrameLayout>
 
 </LinearLayout>

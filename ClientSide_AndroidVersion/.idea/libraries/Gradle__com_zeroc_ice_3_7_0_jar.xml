@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.zeroc:ice:3.7.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zeroc/ice/3.7.0/6680e137309ee807f890a15aa39f7dd612477fe8/ice-3.7.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zeroc/ice/3.7.0/3bbfbb27cb44b2828d5f02d94a7df473b6d0d69c/ice-3.7.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
