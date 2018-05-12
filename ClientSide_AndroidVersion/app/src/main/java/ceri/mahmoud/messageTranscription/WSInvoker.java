@@ -24,7 +24,7 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 public class WSInvoker extends Activity{
     private static String action  ;
     private static String object ;
-    private static String serviceWebUrl = "http://192.168.0.12:4040/RequestAnalyser/Analyser/getActionObject/jouer moi californie";
+    private static String serviceWebUrl = "http://192.168.0.12:4040/RequestAnalyser/Analyser/getActionObject/";
 
     public static Map<String,String> getActionObject(String command, Context context){
         Map<String,String> actionObject = new HashMap<String,String>(2);
@@ -32,7 +32,7 @@ public class WSInvoker extends Activity{
         headers.add(new BasicHeader("Accept", "application/json"));
         AsyncHttpClient client = new AsyncHttpClient();
 //      client.get(null, serviceWebUrl+command, headers.toArray(new Header[headers.size()]), null,
-        client.get(null, serviceWebUrl, headers.toArray(new Header[headers.size()]), null,
+        client.get(null, serviceWebUrl+command, headers.toArray(new Header[headers.size()]), null,
                 new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

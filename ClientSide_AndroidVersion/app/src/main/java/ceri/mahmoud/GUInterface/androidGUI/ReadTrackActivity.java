@@ -43,6 +43,8 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 
 public class ReadTrackActivity extends Activity implements View.OnClickListener {
     private ImageView playButton ;
+    private ImageView backButton ;
+
     private MediaPlayer mPlayer ;
     private ProgressDialog pDialog ;
     private boolean initialStage =true ;
@@ -53,12 +55,19 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_track);
         playButton = (ImageView) findViewById(R.id.playButton);
-        mPlayer = new MediaPlayer();
+        backButton = (ImageView) findViewById(R.id.backButton) ;
 
+        mPlayer = new MediaPlayer();
         mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         pDialog = new ProgressDialog(this);
-        playButton.setOnClickListener(this);
 
+        playButton.setOnClickListener(this);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         /*******************  this will be used to call ice server ***********************
         playButton.setOnClickListener(new View.OnClickListener(){
             @Override
