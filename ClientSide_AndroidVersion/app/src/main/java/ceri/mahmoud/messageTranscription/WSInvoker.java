@@ -25,7 +25,9 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 public class WSInvoker extends Activity{
     private static String action  ;
     private static String object ;
-    private static String serviceWebUrl = "http://192.168.0.12:4040/RequestAnalyser/Analyser/getActionObject/jouer californie";
+    private static String serviceWebUrl = "http://192.168.43.122:4040/RequestAnalyser/Analyser/getActionObject/";//  * Meryem's network
+ //   private static String serviceWebUrl = "http://10.26.2.152:4040/RequestAnalyser/Analyser/getActionObject/";    * Ceri network
+//    private static String serviceWebUrl = "http://192.168.1.12:4040/RequestAnalyser/Analyser/getActionObject/";  * Home network
 
     public static Map<String,String> getActionObject(String command, Context context){
         Map<String,String> actionObject = new HashMap<String,String>(2);

@@ -1,48 +1,34 @@
-package ceri.mahmoud.GUInterface.androidGUI;
+package ceri.mahmoud.lecteurAudio;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.net.rtp.AudioStream;
-import android.net.rtp.RtpStream;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Activity;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.VideoView;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.zeroc.Ice.Communicator;
-import com.zeroc.Ice.ObjectPrx;
-import com.zeroc.Ice.Util;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.SocketException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import Lecteurmp3.ManagerPrx;
-import ceri.mahmoud.messageTranscription.WSInvoker;
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
+import ceri.mahmoud.GUInterface.androidGUI.R;
+import ceri.mahmoud.GUInterface.androidGUI.ReadTrackActivity;
 
-public class ReadTrackActivity extends Activity implements View.OnClickListener {
+public class MP3ReaderActivity extends Activity implements View.OnClickListener {
+    private ProgressBar progressBar;
+    private int progressStatus = 0;
+    private TextView textView;
+    private Handler handler = new Handler();
     private ImageView playButton ;
     private ImageView backButton ;
     private ImageView volume ;
@@ -59,7 +45,9 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_read_track);
+        setContentView(R.layout.activity_mp3_reader);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         playButton = (ImageButton) findViewById(R.id.playButton);
         backButton = (ImageButton) findViewById(R.id.backButton) ;
         volume     = (ImageButton) findViewById(R.id.volumeButton);
@@ -74,6 +62,7 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
                 finish();
             }
         });
+        /*
         volume.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,58 +82,58 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
             }
         });
         /*******************  this will be used to call ice server ***********************
-        playButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize())
-                {
-                    com.zeroc.Ice.ObjectPrx base1 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 10000");
-                    ManagerPrx server1 = ManagerPrx.checkedCast(base1);
+         playButton.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+        try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize())
+        {
+        com.zeroc.Ice.ObjectPrx base1 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 10000");
+        ManagerPrx server1 = ManagerPrx.checkedCast(base1);
 
-                    com.zeroc.Ice.ObjectPrx base2 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 20000");
-                    ManagerPrx server2 = ManagerPrx.checkedCast(base2);
+        com.zeroc.Ice.ObjectPrx base2 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 20000");
+        ManagerPrx server2 = ManagerPrx.checkedCast(base2);
 
-                    com.zeroc.Ice.ObjectPrx base3 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 30000");
-                    ManagerPrx server3 = ManagerPrx.checkedCast(base3);
-                    if(server1 == null || server2 == null|| server3 == null )
-                    {
-                        throw new Error("Invalid server proxy");
-                    }
-                    // Add sounds to server 1
-                    server1.ajouterMorceau("test", "Rai", "Auteur 1", "F:\\sounds");
-                    // Add sounds to server 2
-                    server2.ajouterMorceau("test1", "RnB", "Auteur 2", "F:\\sounds");
-                    // Add sounds to server 3
-                    server3.ajouterMorceau("test2", "Rock", "Auteur 3", "F:\\sounds");
-                    int serverNumber = 0 ;
-                    // search a sound in all servers
-                    if(server1.rechMorceauParTitre("test")) {
-                        serverNumber = 1;
-                    }
-                    else {
-                        if(server2.rechMorceauParTitre("test")) {
-                            serverNumber = 2;
-                        }
-                        else {
-                            if(server3.rechMorceauParTitre("test")) {
-                                serverNumber = 2;
-                            }
-                        }
-                    }
+        com.zeroc.Ice.ObjectPrx base3 = communicator.stringToProxy("LecteurMP3:tcp -h 192.168.0.12 -p 30000");
+        ManagerPrx server3 = ManagerPrx.checkedCast(base3);
+        if(server1 == null || server2 == null|| server3 == null )
+        {
+        throw new Error("Invalid server proxy");
+        }
+        // Add sounds to server 1
+        server1.ajouterMorceau("test", "Rai", "Auteur 1", "F:\\sounds");
+        // Add sounds to server 2
+        server2.ajouterMorceau("test1", "RnB", "Auteur 2", "F:\\sounds");
+        // Add sounds to server 3
+        server3.ajouterMorceau("test2", "Rock", "Auteur 3", "F:\\sounds");
+        int serverNumber = 0 ;
+        // search a sound in all servers
+        if(server1.rechMorceauParTitre("test")) {
+        serverNumber = 1;
+        }
+        else {
+        if(server2.rechMorceauParTitre("test")) {
+        serverNumber = 2;
+        }
+        else {
+        if(server3.rechMorceauParTitre("test")) {
+        serverNumber = 2;
+        }
+        }
+        }
 
-                    switch(serverNumber) {
-                        case 1:	System.out.println("server 1");
-                                server1.streamSound("test", 5);
-                                break;
-                        case 2:	System.out.println("server 2");
-                                server1.streamSound("test", 5);
-                                break;
-                        case 3:	System.out.println("server 3");
-                                server1.streamSound("test", 5);
-                                break;
-                    }
-                }
-            }
+        switch(serverNumber) {
+        case 1:	System.out.println("server 1");
+        server1.streamSound("test", 5);
+        break;
+        case 2:	System.out.println("server 2");
+        server1.streamSound("test", 5);
+        break;
+        case 3:	System.out.println("server 3");
+        server1.streamSound("test", 5);
+        break;
+        }
+        }
+        }
         });
          ************************************************************************/
     }
@@ -219,7 +208,33 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
         }
         return urlStr ;
     }
-    class Player extends AsyncTask<String,Void,Boolean>{
+
+
+    protected void  startProgressBar(){
+        new Thread(new Runnable() {
+            public void run() {
+                while (progressStatus < 100) {
+                    progressStatus += 1;
+                    // Update the progress bar and display the
+                    //current value in the text view
+                    handler.post(new Runnable() {
+                        public void run() {
+                            progressBar.setProgress(progressStatus);
+                            //   textView.setText(progressStatus+"/"+progressBar.getMax());
+                        }
+                    });
+                    try {
+                        // Sleep for 200 milliseconds.
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    class Player extends AsyncTask<String,Void,Boolean> {
         @Override
         protected Boolean doInBackground(String... strings) {
             Boolean prepared = false;
@@ -259,6 +274,4 @@ public class ReadTrackActivity extends Activity implements View.OnClickListener 
             pDialog.show();
         }
     }
-
 }
-

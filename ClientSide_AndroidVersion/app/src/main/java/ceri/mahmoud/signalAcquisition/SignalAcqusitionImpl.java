@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
+import java.lang.reflect.Array;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,10 +17,18 @@ public class SignalAcqusitionImpl implements  ISignalAcqusition, RecognitionCall
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
     private static StringBuilder command ;
+    private ArrayList<String> possibleActions = new ArrayList<String>(10);
 
     private Context context ;
     public SignalAcqusitionImpl(){
         command = new StringBuilder();
+        possibleActions.add("jouer");
+        possibleActions.add("jouez");
+        possibleActions.add("entendre");
+        possibleActions.add("stop");
+        possibleActions.add("arrêter");
+        possibleActions.add("arrêtez");
+        possibleActions.add("pause");
 
     }
     @Override
@@ -39,12 +48,13 @@ public class SignalAcqusitionImpl implements  ISignalAcqusition, RecognitionCall
         }
         return command.toString();
     }
-
     @Override
     public void onRecoginitionFinished(ArrayList<String> matches) {
+        ArrayList<String> allCommands = new ArrayList<String>(10);
         command.append(matches.get(0));
-        System.out.println("(RecordCommandactivity.java) recording has been finished ...");
-        getObjectAction(command.toString());
+        System.out.println("(RecordCommandactivity.java) recording has been finished ..."+extractCommand(matches));
+
+//        getObjectAction(command.toString());
 
     }
     private void recordSignal(Context context){
@@ -62,7 +72,18 @@ public class SignalAcqusitionImpl implements  ISignalAcqusition, RecognitionCall
     private void getObjectAction(String command){
         Map<String,String> actionObject = WSInvoker.getActionObject(command, context);
         System.out.println("Transcription with WS was : ");
-        System.out.println("<Action : "+actionObject.get("action")+ ", Object : "+actionObject.get("object")+" >");
-    }
 
+    }
+    private String extractCommand(ArrayList<String> allCommands){
+        for (int i=0; i< allCommands.size() ; i++)
+        {
+            for(String cmd : possibleActions) {
+                if (allCommands.get(i).toLowerCase().contains(cmd)) {
+                    System.out.println(command+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb : " + allCommands.get(i));
+                    return allCommands.get(i);
+                }
+            }
+        }
+        return null;
+    }
 }
